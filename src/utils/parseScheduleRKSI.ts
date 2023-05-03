@@ -13,7 +13,6 @@ async function parseScheduleRKSI(htmls: string[]): Promise<ScheduleDay[]> {
             const parsedDate = parse(date, 'd MMMM, EEEE', new Date(), {locale: ru});
             const fullDate = format(parsedDate, 'dd.MM.yyyy');
             const weekday = capitalize(format(parsedDate, 'EEEE', {locale: ru}));
-            console.log(weekday)
             currentDay = {fullDate, date, weekday, lessons: []};
             schedule.push(currentDay);
         } else if (currentDay) {

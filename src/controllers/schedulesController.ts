@@ -7,7 +7,6 @@ export class SchedulesController {
     public static async getRKSI(req: Request, res: Response): Promise<void> {
         try {
             const { group } = req.params;
-            console.log(group)
             if (!group) {
                 res.status(404).send("Такой группы нет");
                 return;
