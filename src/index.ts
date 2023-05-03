@@ -1,11 +1,18 @@
-import express, { Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
+import app from "./app";
+import indexRouter from "./controllers";
+import config from "./constants/Config";
 
-const app = express();
+app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, world!');
+// Routes
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).send('Тут ничего нет :с');
 });
+app.use('/', indexRouter);
 
-app.listen(3000, () => {
-    console.log('Server is listening on port 3000!');
+// Server start
+const port = process.env.PORT || config.port;
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
 });
