@@ -1,4 +1,7 @@
 import {ScheduleDay} from "../models";
+import {format, parse} from 'date-fns';
+import {ru} from "date-fns/locale";
+import {capitalize} from "./index";
 
 async function parseScheduleRKSI(htmls: string[]): Promise<ScheduleDay[]> {
     const schedule: ScheduleDay[] = [];
@@ -7,7 +10,11 @@ async function parseScheduleRKSI(htmls: string[]): Promise<ScheduleDay[]> {
     for (const html of htmls) {
         if (html.startsWith('<b>')) {
             const date = html.replace('<b>', '').replace('</b>', '');
-            currentDay = {date, lessons: []};
+            const parsedDate = parse(date, 'd MMMM, EEEE', new Date(), {locale: ru});
+            const fullDate = format(parsedDate, 'dd.MM.yyyy');
+            const weekday = capitalize(format(parsedDate, 'EEEE', {locale: ru}));
+            console.log(weekday)
+            currentDay = {fullDate, date, weekday, lessons: []};
             schedule.push(currentDay);
         } else if (currentDay) {
             const lessonHtml = html.replace('<p>', '').replace('</p>', '');
@@ -16,7 +23,7 @@ async function parseScheduleRKSI(htmls: string[]): Promise<ScheduleDay[]> {
 
             if (time !== '<hr>') {
                 const subject = subjectHtml.replace(/<\/?[^>]+(>|$)/g, '');
-                currentDay.lessons.push({time, subject, teacher, classroom});
+                currentDay.lessons.push({time: time.replace(/\s+/g, ' '), subject, teacher, classroom});
             }
         }
     }
