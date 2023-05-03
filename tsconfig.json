@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6", // Целевая версия ECMAScript
+    "module": "commonjs", // Формат модулей (например, commonjs, es2015, amd)
+    "outDir": "dist", // Директория, куда будут помещены скомпилированные файлы
+    "strict": true, // Строгий режим TypeScript
+    "esModuleInterop": true, // Использование интероперабельности модулей ES для CommonJS
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+    // "sourceMap": true // Генерация sourcemaps для отладки TypeScript
+  },
+  "include": ["src/**/*"], // Список папок/файлов, которые будут скомпилированы
+  "exclude": ["node_modules"] // Список папок/файлов, которые будут исключены из компиляции
+}
