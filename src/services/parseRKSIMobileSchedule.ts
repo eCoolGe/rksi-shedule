@@ -1,7 +1,9 @@
 import puppeteer from "puppeteer";
 
 async function parseRKSIMobileSchedule(url: string, group: string): Promise<string[]> {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        ignoreHTTPSErrors: true
+    });
     const page = await browser.newPage();
     let htmls: string[] = []
 
